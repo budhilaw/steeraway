@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>Steeraway Travels</title>
+
+        <!-- Provider -->
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="./assets/script/bootstrap/bootstrap.min.css">
+
+        <!-- Angular -->
+        <link rel="stylesheet" href="./assets/script/angular/angucomplete-alt.css">
+        <link rel="stylesheet" href="./assets/script/angular/loading-bar.css">
+
+        <!-- Original -->
+        <link rel="stylesheet" href="./assets/css/style.css">
+    </head>
+    <body ng-app="myApp" ng-controller="appController as vm">
+
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Steeraway</a>
+                </div>
+                <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Promos</a></li>
+                        <li><a href="#">Flight</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="heading"> <!-- heading -->
+            <div class="container head-banner">
+                <section>
+                    <div class="head-banner-inner">
+                        <form name="searchForm">
+                            <div class="form-group col-md-12">
+                                <h4>Finding Location</h4>
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <div ng-init="flightType=2">
+                                    <label class="radio-inline">
+                                        <input type="radio" value="0" ng-model="vm.flightType" ng-value="0" ng-change="dateTo = null"> Oneway
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" value="1" ng-model="vm.flightType" ng-value="1"> Return
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <angucomplete-alt id="members"
+                                    placeholder="From: e.g Jakarta"
+                                    pause="100"
+                                    selected-object="placeFrom"
+                                    remote-url="https://api.skypicker.com/places?limit=100&v=2&locale=en&active=0&term="
+                                    search-fields="value"
+                                    data-field
+                                    title-field="value"
+                                    minlength="3"
+                                    name="placeFrom"
+                                    ng-model="placeFrom"
+                                    text-no-results="Place not found"
+                                    input-class="form-control form-control-small"/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <angucomplete-alt id="members"
+                                    placeholder="To: e.g New York"
+                                    pause="100"
+                                    selected-object="placeTo"
+                                    remote-url="https://api.skypicker.com/places?limit=100&v=2&locale=en&active=0&term="
+                                    search-fields="value"
+                                    data-field
+                                    title-field="value"
+                                    minlength="3"
+                                    name="placeTo"
+                                    ng-model="placeTo"
+                                    text-no-results="Place not found"
+                                    input-class="form-control form-control-small"/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <input  type="text"
+                                        class="form-control"
+                                        uib-datepicker-popup="dd/MM/yyyy"
+                                        ng-model="dateFrom"
+                                        ng-focus="dateFromUi = true"
+                                        is-open="dateFromUi"
+                                        min-date="minDate"
+                                        datepicker-options="dateFromOptions"
+                                        ng-required="true"
+                                        show-button-bar="false"
+                                        ng-change="MinAndMax()"
+                                        alt-input-formats="altInputFormats"
+                                        datepicker-append-to-body="true"
+                                        name="dateFrom" onkeydown="return false" placeholder="Departure"/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <input  type="text"
+                                        class="form-control"
+                                        uib-datepicker-popup="{{format}}"
+                                        ng-model="dateTo"
+                                        ng-focus="dateToUi = true"
+                                        is-open="dateToUi"
+                                        min-date="minDate"
+                                        datepicker-options="dateToOptions"
+                                        ng-required="true"
+                                        show-button-bar="false"
+                                        alt-input-formats="altInputFormats"
+                                        ng-disabled="vm.flightType != 1"
+                                        datepicker-append-to-body="true"
+                                        name="dateTo" onkeydown="return false" placeholder="Return"/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12 col-xs-12">
+                                <select name="passenger" ng-model="passenger" class="form-control" placeholder="Passengers">
+                                    <option value="" disabled selected>Passengers</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                </select>
+                            </div>
+                            <button type="submit" ng-disabled="vm.flightType == null || placeFrom == null || placeTo == null || dateFrom == null || passenger == null" ng-click="vm.searchStr()" class="btn btn-success">
+                                {{ vm.searchText }}
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div> <!-- ./heading -->
+
+        <div style="clear:both;"></div>
+
+        {{ vm.error }}
+
+        <a ng-click="vm.searchStr('quality')">Recommended</a> <a ng-click="vm.searchStr('price')">Cheapest</a> <a ng-click="vm.searchStr('duration')">Duration</a> <a ng-click="vm.searchStr('date')">Earliest</a>
+        <div class="results" ng-repeat="result in vm.flight">
+            <div class="results-row">
+                <div class="airlines">
+                    <div class="airlines-value" ng-repeat="pes in result.airlines">
+                        <div ng-repeat="plane in vm.airlines | filter:{'id':  pes}:true">
+                            <img ng-src="https://images.kiwi.com/airlines/32x32/{{ pes }}.png" app-Directive="https://images.kiwi.com/airlines/32x32/skypicker.png" alt="{{plane.name}}" />
+                            <!-- {{ plane.name }} -->
+                        </div>
+                    </div>
+                    <div class="showDetail">
+                        <a ng-click="showHide = !showHide">Flight Detail</a>
+                    </div>
+                </div>
+
+                <div class="time">
+                    <div class="clock">
+                        {{ result.dTime * 1000 | date:'HH:mm' }} - {{ result.route[result.route.length - 1].aTime * 1000 | date:'HH:mm' }}
+                    </div>
+                    <div class="date">
+                        {{ result.dTimeUTC * 1000 | date:'EEEE, dd/MM/yyyy' }} - {{ result.route[result.route.length - 1].aTimeUTC * 1000 | date:'EEEE, dd/MM/yyyy' }}
+                    </div>
+                </div>
+
+                <div class="flightInfo">
+                    <div class="duration">
+                        {{ result.fly_duration }}
+                    </div>
+                    <div class="city">
+                        {{ result.cityFrom }} ({{ result.flyFrom }}) - {{ result.cityTo }} ({{ result.flyTo }})
+                        <div ng-if="vm.flightType == 1">
+                            {{ result.cityTo }} ({{ result.flyTo }}) - {{ result.cityFrom }} ({{ result.flyFrom }})
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price" ng-repeat="price in result.conversion">
+                    {{ price }} &euro; <br />
+                    <a class="btn btn-success" href="{{ result.deep_link }}" role="button" target="_blank">Order</a>
+                </div>
+            </div>
+
+            <div class="routes-wrap" ng-show="showHide">
+                <div class="routes from">
+                        <div class="route timeline" ng-repeat="(key, item) in result.route | filter:{'return': 0}:true">
+                            <div class="layover">
+                                <div class="bagCheck" ng-if="item.bags_recheck_required == true">
+                                    <span class="glyphicon glyphicon-time"></span> Transit for {{ vm.getTransit(result, key) }} <br />
+                                    <span class="glyphicon glyphicon-briefcase"></span> Recheck your baggage
+                                </div>
+                            </div>
+
+                            <div class="from">
+                                <time>{{ item.dTime * 1000 | date:'HH:mm' }}</time>
+                                <span class="date">{{ item.dTime * 1000 | date:'EEEE, dd/MM/yyyy' }}</span>
+                                <span class="city">{{ item.cityFrom }} ({{ item.flyFrom }})</span>
+                                <div style="clear:both;"></div>
+                            </div>
+
+                            <div class="detail">
+                                <div class="airline">
+                                    <div ng-repeat="plane in vm.airlines | filter:{'id':  item.airline}:true">
+                                        <img width="16" height="16" ng-src="https://images.kiwi.com/airlines/32x32/{{ item.airline }}.png" app-Directive="https://images.kiwi.com/airlines/32x32/skypicker.png" alt="{{plane.name}}" />
+                                        {{ plane.name }}
+                                    </div>
+                                </div>
+
+                                <div class="flight-no">
+                                    Flight: {{ item.airline }} {{ item.flight_no }}
+                                </div>
+                                <div class="duration" ng-bind="vm.getDate(item.dTime, item.aTime)"></div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="to" ng-model="timeTo">
+                                <time>{{ item.aTime * 1000 | date:'HH:mm' }}</time>
+                                <span class="date">{{ item.aTime * 1000 | date:'EEEE, dd/MM/yyyy' }}</span>
+                                <span class="city">{{ item.cityTo }} ({{ item.flyTo }})</span>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>
+                </div>
+                <div class="routes">
+                        <div class="route timeline" ng-repeat="(key, item) in result.route | filter:{'return': 1}:true">
+                            <div class="layover">
+                                <div class="bagCheck" ng-if="item.bags_recheck_required == true">
+                                    <span class="glyphicon glyphicon-time"></span> Transit for {{ vm.getTransit(result, key) }} <br />
+                                    <span class="glyphicon glyphicon-briefcase"></span> Recheck your baggage
+                                </div>
+                            </div>
+
+                            <div class="from">
+                                <time>{{ item.dTime * 1000 | date:'HH:mm' }}</time>
+                                <span class="date">{{ item.dTime * 1000 | date:'EEEE, dd/MM/yyyy' }}</span>
+                                <span class="city">{{ item.cityFrom }} ({{ item.flyFrom }})</span>
+                                <div style="clear:both;"></div>
+                            </div>
+
+                            <div class="detail">
+                                <div class="airline">
+                                    <div ng-repeat="plane in vm.airlines | filter:{'id':  item.airline}:true">
+                                        <img width="16" height="16" ng-src="https://images.kiwi.com/airlines/32x32/{{ item.airline }}.png" app-Directive="https://images.kiwi.com/airlines/32x32/skypicker.png" alt="{{plane.name}}" />
+                                        {{ plane.name }}
+                                    </div>
+                                </div>
+
+                                <div class="flight-no">
+                                    Flight: {{ item.airline }} {{ item.flight_no }}
+                                </div>
+                                <div class="duration" ng-bind="vm.getDate(item.dTime, item.aTime)"></div>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="to" ng-model="timeTo">
+                                <time>{{ item.aTime * 1000 | date:'HH:mm' }}</time>
+                                <span class="date">{{ item.aTime * 1000 | date:'EEEE, dd/MM/yyyy' }}</span>
+                                <span class="city">{{ item.cityTo }} ({{ item.flyTo }})</span>
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="about">
+            <h2 class="headSection">
+                <span>Why choose us ?</span>
+            </h2>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="box">
+                            <div class="icon">
+                                <div class="image">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                </div>
+                                <div class="info">
+                                    <h3 class="title">Cheap</h3>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+                                    </p>
+                                    <div class="more">
+                                        <a href="#" title="Title Link">Title</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="box">
+                            <div class="icon">
+                                <div class="image">
+                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                </div>
+                                <div class="info">
+                                    <h3 class="title">Secure</h3>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+                                    </p>
+                                    <div class="more">
+                                        <a href="#" title="Title Link">Title</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-lg-4">
+                        <div class="box">
+                            <div class="icon">
+                                <div class="image">
+                                    <i class="fa fa-braille" aria-hidden="true"></i>
+                                </div>
+                                <div class="info">
+                                    <h3 class="title">Smart</h3>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+                                    </p>
+                                    <div class="more">
+                                        <a href="#" title="Title Link">Title</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Provider -->
+        <!-- Angular -->
+        <script src="./assets/script/angular/angular.min.js"></script>
+        <script src="./assets/script/angular/angular-route.min.js"></script>
+        <script src="./assets/script/angular/angular-animate.js"></script>
+        <script src="./assets/script/angular/angular-sanitize.min.js"></script>
+        <script src="./assets/script/angular/angular-message.min.js"></script>
+        <script src="./assets/script/angular/angucomplete-alt.js"></script>
+        <script src="./assets/script/angular/loading-bar.js"></script>
+
+        <!-- Moment -->
+        <script src="./assets/script/moment/moment.min.js"></script>
+        <script src="./assets/script/moment/moment-precise-range.js"></script>
+
+        <!-- JQuery -->
+        <script src="./assets/script/jquery/jquery-3.2.1.min.js"></script>
+
+        <!-- Bootstrap -->
+        <script src="./assets/script/bootstrap/bootstrap.min.js"></script>
+        <script src="./assets/script/ng-bootstrap/ui-bootstrap-tpls-2.5.0.min.js"></script>
+
+        <!-- Original -->
+        <script src="./assets/js/script.js"></script>
+        <script src="./assets/js/appController.js"></script>
+        <script src="./assets/js/appFactory.js"></script>
+        <script src="./assets/js/appDirective.js"></script>
+    </body>
+</html>

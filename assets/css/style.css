@@ -1,0 +1,471 @@
+.navbar
+{
+    margin-bottom: 0px;
+}
+
+.heading
+{
+    overflow: hidden;
+    width: 100%;
+    min-width: 976px;
+    height: 308px;
+    z-index: 0;
+    background-image: url("http://localhost/steeraway/assets/img/bg.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 16px 0px;
+}
+
+.heading .head-banner-inner
+{
+    background-color: rgba(0,0,0,.75);
+    color: #c7c7c7;
+    padding: 25px 10px;
+}
+
+.heading .head-banner-inner h4
+{
+    margin: 0px;
+}
+
+.heading .head-banner-inner button
+{
+    margin-left: 15px;
+}
+
+/*******************
+    RESULT SECTION
+********************/
+.results
+{
+    transition: 200ms;
+    margin: 0.5rem 0 2rem;
+    background-color: #F2F2F2;
+}
+
+.results-row
+{
+    padding: 15px 25px;
+    cursor: pointer;
+    width: 100%;
+    table-layout: fixed;
+    display: table;
+}
+
+.results .airlines,
+.results .time,
+.results .flightInfo,
+.results .baggage,
+.results .price
+{
+    display: table-cell;
+}
+
+.results .price
+{
+    vertical-align: middle;
+    width: 15%;
+    border-right: 1px solid #e1e1e1;
+    padding: 0px 16px;
+    text-align: center;
+}
+
+.results .airlines
+{
+    vertical-align: middle;
+    border-right: 1px solid #e1e1e1;
+    padding: 0 10px;
+    width: 20%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.results .airlines .airlines-value img
+{
+    padding-right: 10px;
+}
+
+.results .time
+{
+    vertical-align: middle;
+    padding: 0 15px;
+    border-right: 1px solid #e1e1e1;
+    width: 25%;
+}
+
+.results .time .clock,
+.results .flightInfo .duration,
+{
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.results .time .date,
+.results .flightInfo .city
+{
+    font-size: 12px;
+}
+
+.results .flightInfo
+{
+    vertical-align: middle;
+    border-right: 1px solid #e1e1e1;
+    padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.results .baggage
+{
+    vertical-align: middle;
+    border-right: 1px solid #e1e1e1;
+    padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.results .airlines .airlines-value
+{
+    display: table-cell;
+    padding-right: 3px;
+}
+
+.showDetail a
+{
+    margin-top: 5px;
+}
+
+.showDetail a:hover
+{
+    text-decoration: none;
+}
+
+/******************
+    ROUTES FROM
+*******************/
+.routes-wrap
+{
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.routes
+{
+    padding: 25px;
+    border: 1px solid gray;
+    border-left: 0;
+    border-bottom: 0;
+    border-right: 0;
+    width: 50%;
+    border-color: #e1e1e1;
+}
+
+.routes.from
+{
+    border-right: 1px solid #e1e1e1;
+}
+
+.routes .from,
+.routes .to
+{
+    margin-left: 20px;
+    border-bottom: 1px solid #e1e1e1;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.routes .from time,
+.routes .to time
+{
+    font-size: 16px;
+    margin-right: 6px;
+    font-weight: 700;
+}
+
+.routes .from .city,
+.routes .to .city
+{
+    font-size: 16px;
+    font-weight: 700;
+    float: right;
+}
+
+.routes .detail
+{
+    padding: 10px 0 30px 20px;
+    border-left: 4px solid #e1e1e1;
+}
+
+.routes .detail .airline
+{
+    float: left;
+    margin-left: -30px;
+    padding-right: 10px;
+    border-right: 1px solid #e1e1e1;
+    margin-right: 10px;
+}
+
+.routes .detail .airline img
+{
+    margin-right: 11px;
+}
+
+.routes .detail .flight-no
+{
+    padding-right: 10px;
+    border-right: 1px solid #e1e1e1;
+    margin-right: 10px;
+    float: left;
+}
+
+.routes .detail .duration
+{
+    font-weight: 700;
+    float: left;
+}
+
+.routes .layover
+{
+    padding: 20px;
+    position: relative;
+}
+
+.routes .layover:before
+{
+    content: "";
+    display: block;
+    border-left: 2px dotted #e1e1e1;
+    height: calc(100% + 16px);
+    width: 0;
+    position: absolute;
+    left: 1px;
+    top: -8px;
+}
+
+.routes .from:after {
+    content: "";
+    display: block;
+    height: 16px;
+    left: -20px;
+    width: 4px;
+    background: #e1e1e1;
+    position: absolute;
+    bottom: -6px;
+  }
+
+.routes .to:after {
+    content: "";
+    display: block;
+    height: 20px;
+    left: -20px;
+    width: 4px;
+    background: #e1e1e1;
+    position: absolute;
+    top: -6px;
+  }
+
+.routes .from:before,
+.routes .to:before
+{
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: #e1e1e1;
+    position: absolute;
+    left: -26px;
+    border-radius: 50px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+/******************
+    FLIGHTINFO
+*******************/
+
+.flightInfo
+{
+    padding: 16px 25px 10px;
+    clear: both;
+    border-top: 1px solid #e1e1e1;
+}
+
+.flightInfo h4 {
+    font-size: 13px;
+}
+
+/******************
+    TIMELINE
+*******************/
+.timeline {
+    border: 1px solid gray;
+    border-left: 0;
+    border-bottom: 0;
+    border-right: 0;
+    border-color: #e1e1e1;
+}
+
+/*******************
+    ABOUT SECTION
+********************/
+.headSection
+{
+    text-align: center;
+    margin: 20px 0px;
+}
+
+section.about h2
+{
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: .3px;
+}
+
+.box > .icon
+{
+    text-align: center;
+    position: relative;
+}
+
+.box > .icon > .image
+{
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    width: 88px;
+    height: 88px;
+    border: 8px solid white;
+    line-height: 88px;
+    border-radius: 50%;
+    background: #4466e4;
+    vertical-align: middle;
+}
+
+.box > .icon:hover > .image
+{
+    background: #333;
+}
+
+.box > .icon > .image > i
+{
+    font-size: 36px !important;
+    color: #fff !important;
+}
+
+.box > .icon:hover > .image > i
+{
+    color: white !important;
+}
+
+.box > .icon > .info
+{
+    margin-top: -24px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid #e0e0e0;
+    padding: 15px 0 10px 0;
+}
+
+.box > .icon:hover > .info
+{
+    background: rgba(0, 0, 0, 0.04);
+    border-color: #e0e0e0;
+    color: white;
+}
+
+.box > .icon > .info > h3.title
+{
+    font-family: "Roboto",sans-serif !important;
+    font-size: 16px;
+    color: #222;
+    font-weight: 500;
+}
+
+.box > .icon > .info > p
+{
+    font-family: "Roboto",sans-serif !important;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5em;
+    margin: 20px;
+}
+
+.box > .icon:hover > .info > h3.title,
+.box > .icon:hover > .info > p,
+.box > .icon:hover > .info > .more > a
+{
+    color: #222;
+}
+
+.box > .icon > .info > .more a
+{
+    font-family: "Roboto",sans-serif !important;
+    font-size: 12px;
+    color: #222;
+    line-height: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.box > .icon:hover > .info > .more > a
+{
+    color: #fff;
+    padding: 6px 8px;
+    background-color: #4466e4;
+}
+
+.box .space
+{
+    height: 30px;
+}
+
+/*******************
+    PRELOADER
+********************/
+/** for pages that don't load angular but have angular templates in them. **/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+@keyframes rotate360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes rotate360 {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+
+.spinner {
+  display:inline-block;
+  border-radius: 50px;
+  border-style: solid;
+  border-bottom-color: #3b5641;
+  border-top-color: #67b3a9;
+  border-left-color: #df7950;
+  border-right-color: #decb3f;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  animation: rotate360 1s linear infinite;
+  -webkit-animation: rotate360 1s linear infinite;
+
+  border-width: 4px;
+  width: 24px;
+  height: 24px;
+}
